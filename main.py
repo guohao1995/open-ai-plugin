@@ -49,6 +49,10 @@ async def openapi_spec():
         text = f.read()
         return quart.Response(text, mimetype="text/yaml")
 
+@app.route("/")
+def hello():
+    return "Hello World from Flask using CORS."
+
 def main():
     app.run(debug=True, host="0.0.0.0", port=5003)
 
