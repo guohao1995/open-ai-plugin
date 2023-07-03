@@ -10,6 +10,10 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  WEBAPP_NAME: 'hao-python-hello-world'
+  RESOURCE_GROUP: 'python-training'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,10 +58,21 @@ jobs:
           name: python-app
           path: .
           
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
+      - name: 'Log in to Azure CLI'
+        uses: azure/login@v1
         with:
-          app-name: 'hao-python-hello-world'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD164DC70A9A415BA41C2AF105ED7F99 }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: 'Deploy web app through CLI'
+        run: |
+          az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
+          --name ${{env.WEBAPP_NAME}} \
+          --src-path python-app.zip
+      
+#       - name: 'Deploy to Azure Web App'
+#         uses: azure/webapps-deploy@v2
+#         id: deploy-to-webapp
+#         with:
+#           app-name: 'hao-python-hello-world'
+#           slot-name: 'Production'
+#           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD164DC70A9A415BA41C2AF105ED7F99 }}
