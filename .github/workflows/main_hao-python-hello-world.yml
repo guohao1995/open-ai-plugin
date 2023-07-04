@@ -65,8 +65,10 @@ jobs:
           
       - name: 'Deploy web app through CLI'
         run: |
-          sudo zip python-app.zip -r /home/runner/work/open-ai-plugin/open-ai-plugin/test
-          ls /home/runner/work/open-ai-plugin/open-ai-plugin/test
+          cd /home/runner/work/open-ai-plugin/open-ai-plugin/test
+          ls
+          sudo zip python-app.zip -r .
+          ls 
           az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
           --name ${{env.WEBAPP_NAME}} \
           --src-path /home/runner/work/open-ai-plugin/open-ai-plugin/test/python-app.zip \
