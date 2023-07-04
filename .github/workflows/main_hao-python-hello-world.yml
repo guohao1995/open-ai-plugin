@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: python-app
-          path: ./test
+          path: .
           
       - name: 'Log in to Azure CLI'
         uses: azure/login@v1
@@ -65,13 +65,11 @@ jobs:
           
       - name: 'Deploy web app through CLI'
         run: |
-          cd /home/runner/work/open-ai-plugin/open-ai-plugin/test
-          ls
-          sudo zip python-app.zip -r .
+          sudo zip python-app.zip -r /home/runner/work/open-ai-plugin/open-ai-plugin
           ls 
           az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
           --name ${{env.WEBAPP_NAME}} \
-          --src-path /home/runner/work/open-ai-plugin/open-ai-plugin/test/python-app.zip \
+          --src-path python-app.zip \
           --type zip
       
 #       - name: 'Deploy to Azure Web App'
