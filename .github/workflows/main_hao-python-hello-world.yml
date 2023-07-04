@@ -65,9 +65,10 @@ jobs:
           
       - name: 'Deploy web app through CLI'
         run: |
+          ls /home/runner/work/open-ai-plugin/open-ai-plugin
           az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
           --name ${{env.WEBAPP_NAME}} \
-          --src-path . \
+          --src-path /home/runner/work/open-ai-plugin/open-ai-plugin \
           --type zip
       
 #       - name: 'Deploy to Azure Web App'
