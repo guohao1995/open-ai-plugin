@@ -13,6 +13,7 @@ on:
 env:
   WEBAPP_NAME: 'hao-python-hello-world'
   RESOURCE_GROUP: 'python-training'
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
   
 jobs:
   build:
@@ -63,14 +64,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-      - name: 'Deploy web app through CLI'
-        run: |
-          sudo zip python-app.zip -r /home/runner/work/open-ai-plugin/open-ai-plugin
-          ls 
-          az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
-          --name ${{env.WEBAPP_NAME}} \
-          --src-path python-app.zip \
-          --type zip
+#       - name: 'Deploy web app through CLI'
+#         run: |
+#           sudo zip python-app.zip -r /home/runner/work/open-ai-plugin/open-ai-plugin
+#           ls 
+#           az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
+#           --name ${{env.WEBAPP_NAME}} \
+#           --src-path python-app.zip \
+#           --type zip
       
 #       - name: 'Deploy to Azure Web App'
 #         uses: azure/webapps-deploy@v2
@@ -79,3 +80,9 @@ jobs:
 #           app-name: 'hao-python-hello-world'
 #           slot-name: 'Production'
 #           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD164DC70A9A415BA41C2AF105ED7F99 }}
+
+      - name: Deploy web App using GH Action azure/webapps-deploy
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
