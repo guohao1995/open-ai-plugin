@@ -67,7 +67,8 @@ jobs:
         run: |
           az webapp deploy --resource-group ${{ env.RESOURCE_GROUP }} \
           --name ${{env.WEBAPP_NAME}} \
-          --src-path python-app.zip
+          --src-path . \
+          --type zip
       
 #       - name: 'Deploy to Azure Web App'
 #         uses: azure/webapps-deploy@v2
