@@ -73,16 +73,16 @@ jobs:
 #           --src-path python-app.zip \
 #           --type zip
       
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
-        with:
-          app-name: 'hao-python-hello-world'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD164DC70A9A415BA41C2AF105ED7F99 }}
-
-#       - name: Deploy web App using GH Action azure/webapps-deploy
+#       - name: 'Deploy to Azure Web App'
 #         uses: azure/webapps-deploy@v2
+#         id: deploy-to-webapp
 #         with:
-#           app-name: ${{ env.WEBAPP_NAME }}
-#           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+#           app-name: 'hao-python-hello-world'
+#           slot-name: 'Production'
+#           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DD164DC70A9A415BA41C2AF105ED7F99 }}
+
+      - name: Deploy web App using GH Action azure/webapps-deploy
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.WEBAPP_NAME }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
