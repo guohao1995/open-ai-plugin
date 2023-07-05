@@ -59,10 +59,10 @@ jobs:
           name: python-app
           path: .
           
-#       - name: 'Log in to Azure CLI'
-#         uses: azure/login@v1
-#         with:
-#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Log in to Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           
 #       - name: 'Deploy web app through CLI'
 #         run: |
